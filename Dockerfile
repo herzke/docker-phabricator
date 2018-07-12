@@ -16,13 +16,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&                                                         \
     apt-get install -y git nginx nginx php-fpm python-pygments python-chardet \
                        php-apcu php-fpm supervisor mariadb-client
-RUN adduser phabricator --uid 2000 --ingroup www-data
-RUN cat /etc/passwd                                                    && \
-    cat /etc/group 
 
-# baseline/setup.sh installs the necessary software packages
-COPY baseline /baseline
-RUN /baseline/setup.sh
+# Add phabricator user with fixed UID and default group the same as nginx
+RUN adduser phab --uid 2000 --ingroup www-data
+
+# checkout phabricator
+RUN su -c "git clone https://www.github.com/phacility/libphutil.git /home/phabricator/libphutil" phab
+RUN su -c "git clone https://www.github.com/phacility/arcanist.git /home/phabricator/arcanist" phab
+RUN su -c "git clone https://www.github.com/phacility/phabricator.git /home/phabricator/phabricator" phab
 
 COPY preflight /preflight
 RUN /preflight/setup.sh
