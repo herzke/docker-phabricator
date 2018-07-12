@@ -18,7 +18,7 @@ RUN apt-get update &&                                                         \
                        php-apcu php-fpm supervisor mariadb-client
 
 # Add phabricator user with fixed UID and default group the same as nginx
-RUN adduser phab --uid 2000 --ingroup www-data
+RUN adduser phab --uid 2000 --ingroup www-data --disabled-password
 
 # checkout phabricator
 RUN su -c "git clone https://www.github.com/phacility/libphutil.git /home/phabricator/libphutil" phab
