@@ -11,6 +11,13 @@ FROM debian:latest
 # hosting.
 EXPOSE 80 22
 
+# install software packages
+RUN apt update &&                                                         \
+    apt install -y git nginx nginx php-fpm python-pygments python-chardet \
+                   php-apcu php-fpm supervisor mariadb-client
+RUN cat /etc/passwd                                                    && \
+    cat /etc/group 
+
 # baseline/setup.sh installs the necessary software packages
 COPY baseline /baseline
 RUN /baseline/setup.sh
