@@ -12,9 +12,11 @@ FROM debian:latest
 EXPOSE 80 22
 
 # install software packages
-RUN apt update &&                                                         \
-    apt install -y git nginx nginx php-fpm python-pygments python-chardet \
-                   php-apcu php-fpm supervisor mariadb-client
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update &&                                                         \
+    apt-get install -y git nginx nginx php-fpm python-pygments python-chardet \
+                       php-apcu php-fpm supervisor mariadb-client
+RUN adduser phabricator --uid 2000 --ingroup www-data
 RUN cat /etc/passwd                                                    && \
     cat /etc/group 
 
