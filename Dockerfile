@@ -21,9 +21,9 @@ RUN apt-get update &&                                                         \
 RUN adduser phab --uid 2000 --ingroup www-data --disabled-password
 
 # checkout phabricator
-RUN su -c "git clone https://www.github.com/phacility/libphutil.git /home/phabricator/libphutil" phab
-RUN su -c "git clone https://www.github.com/phacility/arcanist.git /home/phabricator/arcanist" phab
-RUN su -c "git clone https://www.github.com/phacility/phabricator.git /home/phabricator/phabricator" phab
+RUN su -c "git clone https://www.github.com/phacility/libphutil.git /home/phab/libphutil" phab
+RUN su -c "git clone https://www.github.com/phacility/arcanist.git /home/phab/arcanist" phab
+RUN su -c "git clone https://www.github.com/phacility/phabricator.git /home/phab/phabricator" phab
 
 COPY preflight /preflight
 RUN /preflight/setup.sh
